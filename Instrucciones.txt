@@ -1,0 +1,7 @@
+IMPORTANTE
+- Tener Python 3.6 de 64 bits instalado
+- cd "matlabroot/extern/engines/python"
+- python setup.py install
+Adicionales 
+- python -m pip install matplotlib
+- python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose 
