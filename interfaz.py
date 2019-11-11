@@ -5,7 +5,12 @@
 
 from tkinter import *
 #from tkinter import Menu
+import PIL
+#sudo apt-get install python3-pil python3-pil.imagetk
+from PIL import ImageTk, Image
+from tkinter import filedialog as tkfd
 
+imagen = None
 
 # ######### #
 # Funciones #
@@ -36,8 +41,24 @@ S: Impresion por pantalla a terminal Python
     """
     print("Presionaste un Boton.")
 
+def cargarImagen():
+    global imagen
+    filename = tkfd.askopenfilename(title="Seleccione su imagen")
+    
+    imagen = Image.open(filename)
+    img = ImageTk.PhotoImage(imagen)
 
+    label = Label(image=img)
+    label.image = img
+    label.place(x = 170, y = 50)
 
+def guardarImagen():
+    global imagen
+    a = tkfd.asksaveasfilename(title="Guarde",
+                                            initialdir="C:/",
+                                            defaultextension=".png"
+                                            )
+    imagen.save(a)
 # ### #
 # GUI #
 # ### #
@@ -76,7 +97,7 @@ window.config(menu=menu)
 
 ## BOTONES
 # Cargar Imagen
-boton_cargar_imagen = Button(window,text="Cargar Imagen",command=buttonPlaceholder)
+boton_cargar_imagen = Button(window,text="Cargar Imagen",command=cargarImagen)
 boton_cargar_imagen.grid(column=0,row=0)
 # Herramientas
 label_herramientas = Label(window, text="Herramientas")
@@ -90,7 +111,7 @@ boton_herramienta_3.grid(column=0,row=3)
 boton_herramienta_4 = Button(window,text="Herramienta 4",command=buttonPlaceholder)
 boton_herramienta_4.grid(column=1,row=3)
 # Recortar
-boton_recortar = Button(window,text="Recortar",command=buttonPlaceholder)
+boton_recortar = Button(window,text="Recortar",command=guardarImagen)
 boton_recortar.grid(column=0,row=4)
 
 ## LOOP PARA MANTENER VENTANA
