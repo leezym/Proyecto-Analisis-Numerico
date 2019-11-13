@@ -2,8 +2,6 @@ function prueba()
     clear all
     close all
     
-    N = 5;
-    
     % Configuracion de estilo de la interfaz
     hh=figure;
     h1=axes;
@@ -21,27 +19,26 @@ function prueba()
     image(I)
     
     % Obtener puntos en el plano (curva)
-    [x,y]=ginput();
+    [x,y] = ginput();
+    xI = x(1);
+    yI = y(1);
     
     % Recorte curvo
-    [xF,yF,X1,Y1] = curva(x,y);
+    [X1,Y1] = curva(x,y);
     
     % Guardar datos de la curva
-    [vectorX,vectorY] = forma(x(1),y(1),X1',Y1');
+    [vectorX,vectorY] = forma(xI,yI,X1',Y1');
     
     % Obtener puntos en el plano (linea)
-    [w,z]=ginput();
-    
-    % Recorte lineal   
-    [wF,zF] = linea(w,z,xF,yF);
+    [x,y] = ginput();
     
     % Guardar datos de la linea
-    [vectorX,vectorY] = forma(vectorX,vectorY,w,z);
+    [vectorX,vectorY] = forma(vectorX,vectorY,x,y);
     
-    recorte(vectorX,vectorY,x(1),y(1));   
+    recorte(vectorX,vectorY,xI,yI);   
 end
 
-function [xF,yF,X1,Y1] = curva(x,y)
+function [X1,Y1] = curva(x,y)
     hold on
     % Rectas (m,n) y (t,h)
     m=length(x);
@@ -62,18 +59,6 @@ function [xF,yF,X1,Y1] = curva(x,y)
         X1=sum(X);
         Y1=sum(Y);
     end
-    %plot(X1,Y1,'-b','LineWidth',1.5)
-    xF = x(length(x));
-    yF = y(length(y));
-end
-
-function [wF,zF] = linea(w,z,wI,zI)
-    hold on
-    w = [wI; w];
-    z = [zI; z]; 
-    %plot(w,z,'-b','LineWidth',1.5)
-    wF = w(length(w));
-    zF = z(length(z));
 end
 
 function [vectorX,vectorY] = forma(vectorX,vectorY,x,y)
