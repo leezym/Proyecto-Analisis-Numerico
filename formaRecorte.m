@@ -38,7 +38,7 @@ function prueba()
     % Guardar datos de la linea
     [vectorX,vectorY] = forma(vectorX,vectorY,w,z);
     
-    recorte(vectorX,vectorY);   
+    recorte(vectorX,vectorY,x(1),y(1));   
 end
 
 function [xF,yF,X1,Y1] = curva(x,y)
@@ -69,8 +69,6 @@ end
 
 function [wF,zF] = linea(w,z,wI,zI)
     hold on
-    % Obtener puntos en el plano (linea)
-    [w,z]=ginput();
     w = [wI; w];
     z = [zI; z]; 
     %plot(w,z,'-b','LineWidth',1.5)
@@ -83,7 +81,9 @@ function [vectorX,vectorY] = forma(vectorX,vectorY,x,y)
     vectorY = [vectorY ; y];
 end
 
-function recorte(vectorX,vectorY)
+function recorte(vectorX,vectorY,x,y)
+    vectorX = [vectorX ; x];
+    vectorY = [vectorY ; y];
     % Forma completa
     plot(vectorX,vectorY,'-b','LineWidth',1.5)
 end
